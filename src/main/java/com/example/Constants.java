@@ -3,6 +3,7 @@ package com.example;
 import java.util.Set;
 
 public final class Constants {
+    public static final int CITY_INPUT_TIME_SEC = 10;
     public static final Set<String> CITIES = Set.of(
             "курск",
             "архангельск",
