@@ -1,8 +1,12 @@
 package com.example;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+
+import com.example.exception.TimeIsUpException;
 
 public class CityManager {
 
@@ -17,13 +21,19 @@ public class CityManager {
     /**
      * Считывает очередной город.
      * Если игрок вводит некорректный город, то повторяет ввод.
+     * 
+     * @throws TimeIsUpException если время на ввод города вышло
      */
     void readCity() {
         boolean cityIsValid;
+        LocalTime startTime = LocalTime.now();
         String city;
 
         do {
             city = scanner.nextLine();
+            if (ChronoUnit.SECONDS.between(startTime, LocalTime.now()) > Constants.CITY_INPUT_TIME_SEC) {
+                throw new TimeIsUpException("Время на ввод города вышло");
+            }
 
             cityIsValid = isCityValid(city);
             if (!cityIsValid) {
