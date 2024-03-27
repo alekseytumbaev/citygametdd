@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 
 public class CityManagerTest {
-    
+
     Scanner scanner = Mockito.mock(Scanner.class);
 
     @ParameterizedTest

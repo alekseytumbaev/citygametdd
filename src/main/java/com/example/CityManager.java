@@ -19,7 +19,20 @@ public class CityManager {
      * Если игрок вводит некорректный город, то повторяет ввод.
      */
     void readCity() {
+        boolean cityIsValid;
+        String city;
 
+        do {
+            city = scanner.nextLine();
+
+            cityIsValid = isCityValid(city);
+            if (!cityIsValid) {
+                System.out.println("Такой город не подойдет. Попробуйте еще раз:");
+            }
+        } while (!cityIsValid);
+
+        usedCities.add(city);
+        currentCity = city;
     }
 
     /**
@@ -32,6 +45,26 @@ public class CityManager {
      * @return true, если город подходит, иначе false
      */
     boolean isCityValid(String city) {
+        String lowerCaseCity = city.toLowerCase();
+        if (!Constants.CITIES.contains(lowerCaseCity) ||
+                usedCities.contains(lowerCaseCity)) {
+            return false;
+        }
 
+        if (currentCity == null) {
+            return true;
+        }
+
+        return newCityStartsWithLastLetterOfCurrentCity(lowerCaseCity);
+    }
+
+    private boolean newCityStartsWithLastLetterOfCurrentCity(String newCity) {
+        if (newCity == null) {
+            return false;
+        }
+
+        char newChar = Character.toLowerCase(newCity.charAt(0));
+        char currChar = Character.toLowerCase(currentCity.charAt(currentCity.length() - 1));
+        return newChar == currChar;
     }
 }
