@@ -19,7 +19,15 @@ public class Game {
      * Если введено некорректное число, то повторяет ввод.
      */
     void readPlayersNumber() {
-
+        String str = scanner.nextLine();
+        int tmpNumber = convertPlayersNumberIfValid(str);
+        while (tmpNumber < 0) {
+            System.out.println("Количество игроков должно быть числом от " + Constants.MIN_PLAYERS + " до "
+                    + Constants.MAX_PLAYERS);
+            str = scanner.nextLine();
+            tmpNumber = convertPlayersNumberIfValid(str);
+        }
+        playersNumber = tmpNumber;
     }
 
     /**
@@ -32,6 +40,15 @@ public class Game {
      * @return количество игроков числом, либо -1, если ввод неверный
      */
     int convertPlayersNumberIfValid(String playersNumberStr) {
-
+        int playersNumber;
+        try {
+            playersNumber = Integer.parseInt(playersNumberStr);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+        if (playersNumber >= Constants.MIN_PLAYERS && playersNumber <= Constants.MAX_PLAYERS) {
+            return playersNumber;
+        }
+        return -1;
     }
 }
