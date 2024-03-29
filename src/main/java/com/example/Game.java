@@ -2,8 +2,12 @@ package com.example;
 
 import java.util.Scanner;
 
+import com.example.exception.TimeIsUpException;
+
 public class Game {
+
     private final Scanner scanner;
+    private final CityManager cityManager;
 
     /**
      * Количество игроков
@@ -17,6 +21,7 @@ public class Game {
 
     public Game(Scanner scanner) {
         this.scanner = scanner;
+        this.cityManager = new CityManager(scanner);
     }
 
     /**
@@ -65,5 +70,14 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             players[i] = i + 1;
         }
+    }
+
+        /**
+     * Зацикливает ходы игроков, пока не останется только один.
+     * Игрок выбывает, если не успел ввести город за
+     * {@link Constants.CITY_INPUT_TIME} секунд
+     */
+    void loopMoves() {
+
     }
 }

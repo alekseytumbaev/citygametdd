@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -52,5 +53,20 @@ public class GameTest {
         assertEquals(1, game.players[0]);
         assertEquals(2, game.players[1]);
         assertEquals(3, game.players[2]);
+    }
+
+    @Test
+    void testShouldRemoveCurrentPlayerIfTimeIsUp() {
+        when(scanner.nextLine()).then(invocation -> {
+            TimeUnit.SECONDS.sleep(Constants.CITY_INPUT_TIME_SEC + 1);
+            return "Москва";
+        });
+        Game game = new Game(scanner);
+
+        game.players = new int[] { 1, 2 };
+        game.playersNumber = game.players.length;
+        game.loopMoves();
+        assertEquals(1, game.playersNumber);
+        assertEquals(-1, game.players[0]);
     }
 }
