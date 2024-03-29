@@ -1,8 +1,10 @@
 package com.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.example.exception.AmbiguousWinnerException;
+import com.example.exception.NoWinnerException;
 import com.example.exception.TimeIsUpException;
 
 public class Game {
@@ -104,6 +106,15 @@ public class Game {
      * @throws AmbiguousWinnerException если несколько победителей
      */
     int determineWinner() {
-
+        int[] winners = Arrays.stream(players)
+                .filter(p -> p > 0)
+                .toArray();
+        if (winners.length == 1) {
+            return winners[0];
+        } else if (winners.length == 0) {
+            throw new NoWinnerException("Нет победителя");
+        } else {
+            throw new AmbiguousWinnerException("Несколько победителей");
+        }
     }
 }
