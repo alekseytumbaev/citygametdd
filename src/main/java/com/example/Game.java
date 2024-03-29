@@ -10,7 +10,7 @@ public class Game {
      */
     int playersNumber;
 
-        /**
+    /**
      * Номера игроков. Если игрок выбыл, его номер становится -1
      */
     int[] players;
@@ -61,5 +61,9 @@ public class Game {
      * Инициализирует массив с номерами игроков.
      */
     void initializePlayersArray() {
+        players = new int[playersNumber];
+        for (int i = 0; i < players.length; i++) {
+            players[i] = i + 1;
+        }
     }
 }
