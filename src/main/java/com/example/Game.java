@@ -27,6 +27,28 @@ public class Game {
         this.cityManager = new CityManager(scanner);
     }
 
+    public void start() {
+        System.out.println("""
+                Правила игры:
+                Игроки по очереди вводят города, на ввод города дается десять секунд.
+                Если текущий игрок не успел ввести город, он выбывает и ход переходит следующему.
+                Побеждает тот, кто остался в игре последним.
+                """);
+        System.out.println(
+                "Введите количество игроков (от " + Constants.MIN_PLAYERS + " до " + Constants.MAX_PLAYERS + "): ");
+        readPlayersNumber();
+        initializePlayersArray();
+
+        loopMoves();
+
+        try {
+            int winner = determineWinner();
+            System.out.println("Победил игрок " + winner);
+        } catch (RuntimeException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+    }
+
     /**
      * Считывает количество игроков.
      * Если введено некорректное число, то повторяет ввод.
