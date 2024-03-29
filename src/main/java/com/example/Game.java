@@ -72,12 +72,27 @@ public class Game {
         }
     }
 
-        /**
+    /**
      * Зацикливает ходы игроков, пока не останется только один.
      * Игрок выбывает, если не успел ввести город за
      * {@link Constants.CITY_INPUT_TIME} секунд
      */
     void loopMoves() {
-
+        while (playersNumber > 1) {
+            for (int i = 0; i < players.length && playersNumber > 1; i++) {
+                int currentPlayer = players[i];
+                if (currentPlayer < 1) {
+                    continue;
+                }
+                System.out.println("Игрок " + currentPlayer + ", введите город: ");
+                try {
+                    cityManager.readCity();
+                } catch (TimeIsUpException e) {
+                    players[i] = -1;
+                    playersNumber--;
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }
 }
