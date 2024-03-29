@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Scanner;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
@@ -39,5 +40,17 @@ public class GameTest {
         Game game = new Game(scanner);
         game.readPlayersNumber();
         assertEquals(input, game.playersNumber);
+    }
+
+    @Test
+    void testShouldCorrectlyInitializePlayersArray() {
+        Game game = new Game(scanner);
+        game.playersNumber = 3;
+
+        game.initializePlayersArray();
+        assertEquals(3, game.players.length);
+        assertEquals(1, game.players[0]);
+        assertEquals(2, game.players[1]);
+        assertEquals(3, game.players[2]);
     }
 }

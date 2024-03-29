@@ -10,6 +10,11 @@ public class Game {
      */
     int playersNumber;
 
+        /**
+     * Номера игроков. Если игрок выбыл, его номер становится -1
+     */
+    int[] players;
+
     public Game(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -50,5 +55,11 @@ public class Game {
             return playersNumber;
         }
         return -1;
+    }
+
+    /**
+     * Инициализирует массив с номерами игроков.
+     */
+    void initializePlayersArray() {
     }
 }
