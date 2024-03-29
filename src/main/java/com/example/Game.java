@@ -2,6 +2,7 @@ package com.example;
 
 import java.util.Scanner;
 
+import com.example.exception.AmbiguousWinnerException;
 import com.example.exception.TimeIsUpException;
 
 public class Game {
@@ -94,5 +95,15 @@ public class Game {
                 }
             }
         }
+    }
+
+    /**
+     * Определяет победителя, то есть игрока, который не выбыл.
+     * 
+     * @return номер победителя
+     * @throws AmbiguousWinnerException если несколько победителей
+     */
+    int determineWinner() {
+
     }
 }

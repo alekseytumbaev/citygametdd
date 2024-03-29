@@ -1,6 +1,7 @@
 package com.example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -11,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
+
+import com.example.exception.AmbiguousWinnerException;
+import com.example.exception.NoWinnerException;
 
 public class GameTest {
 
@@ -68,5 +72,29 @@ public class GameTest {
         game.loopMoves();
         assertEquals(1, game.playersNumber);
         assertEquals(-1, game.players[0]);
+    }
+
+    @Test
+    void testShouldThrowExceptionIfWinnerIsAmbiguous() {
+        Game game = new Game(scanner);
+
+        game.players = new int[] { -1, -1, 3, 4 };
+        assertThrows(AmbiguousWinnerException.class, () -> game.determineWinner());
+    }
+
+    @Test
+    void testShouldThrowExceptionIfNoWinner() {
+        Game game = new Game(scanner);
+
+        game.players = new int[] { -1, -1, -1, -1 };
+        assertThrows(NoWinnerException.class, () -> game.determineWinner());
+    }
+
+    @Test
+    void testShouldDetermineWinner() {
+        Game game = new Game(scanner);
+
+        game.players = new int[] { -1, -1, -1, 4 };
+        assertEquals(4, game.determineWinner());
     }
 }
